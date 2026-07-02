@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Selamat Ulang Tahun Alinda - Kejutan spesial untukmu">
+  <title>🎂 Selamat Ulang Tahun, Alinda! 🎂</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ============================================= -->
+  <!--  FLOATING PARTICLES (Hearts, Stars, Sparkles) -->
+  <!-- ============================================= -->
+  <div class="particles" id="particles"></div>
+
+  <!-- ============================================= -->
+  <!--  MUSIC PLAYER - Terlihat di semua halaman     -->
+  <!-- ============================================= -->
+  <div class="music-player" id="musicPlayer">
+    <button class="music-btn" id="musicBtn" title="Play / Pause Musik">
+      <span class="music-icon" id="musicIcon">🎵</span>
+      <span class="music-pulse"></span>
+    </button>
+    <span class="music-label" id="musicLabel">Play Musik</span>
+  </div>
+
+  <!-- 
+    =============================================
+    GANTI LINK LAGU DI BAWAH INI
+    Gunakan file MP3 lokal atau link langsung ke file audio.
+    Contoh: "lagu-romantis.mp3" atau "https://example.com/lagu.mp3"
+    =============================================
+  -->
+  <audio id="bgMusic" loop>
+    <source src="musik/lagu-romantis.mp3" type="audio/mpeg">
+    <!-- Tambahkan format lain jika perlu -->
+    <!-- <source src="musik/lagu-romantis.ogg" type="audio/ogg"> -->
+  </audio>
+
+  <!-- ============================================= -->
+  <!--  HALAMAN 1: LANDING PAGE                      -->
+  <!-- ============================================= -->
+  <section class="page page-landing active" id="pageLanding">
+    <div class="landing-content">
+      <div class="envelope-icon">💌</div>
+      <p class="landing-subtitle">Ada sesuatu yang spesial untukmu...</p>
+      <h1 class="landing-title">
+        <span class="title-line">Hai,</span>
+        <span class="title-name">Alinda ✨</span>
+      </h1>
+      <p class="landing-description">
+        Aku sudah menyiapkan kejutan kecil ini khusus untukmu. 
+        Klik tombol di bawah untuk membukanya, ya! 🎁
+      </p>
+      <button class="btn-surprise" id="btnSurprise">
+        <span class="btn-text">🎁 Buka Kejutan</span>
+        <span class="btn-sparkle">✨</span>
+      </button>
+    </div>
+    <div class="landing-decoration">
+      <div class="floating-emoji e1">🌸</div>
+      <div class="floating-emoji e2">🎀</div>
+      <div class="floating-emoji e3">💖</div>
+      <div class="floating-emoji e4">🦋</div>
+      <div class="floating-emoji e5">🌷</div>
+      <div class="floating-emoji e6">⭐</div>
+    </div>
+  </section>
+
+  <!-- ============================================= -->
+  <!--  HALAMAN 2: GALERI FOTO                       -->
+  <!-- ============================================= -->
+  <section class="page page-gallery" id="pageGallery">
+    <div class="page-inner">
+      <h2 class="section-title">📸 Momen Kita Berdua</h2>
+      <p class="section-subtitle">Setiap momen bersamamu adalah kenangan terindah</p>
+      
+      <div class="gallery-grid">
+        <!-- 
+          =============================================
+          CARA MENGGANTI FOTO:
+          1. Taruh foto-foto kamu di folder "foto/"
+          2. Ganti src="foto/foto1.jpg" dengan nama file foto kamu
+          3. Ganti teks caption sesuai keinginan
+          =============================================
+        -->
+        <div class="polaroid" style="--rotate: -3deg">
+          <div class="polaroid-inner">
+            <div class="polaroid-img">
+              <img src="foto/foto1.jpeg" alt="Foto bersama 1" loading="lazy">
+            </div>
+            <p class="polaroid-caption">Momen pertama kita 💕</p>
+          </div>
+        </div>
+
+        <div class="polaroid" style="--rotate: 2deg">
+          <div class="polaroid-inner">
+            <div class="polaroid-img">
+              <img src="foto/foto2.jpeg" alt="Foto bersama 2" loading="lazy">
+            </div>
+            <p class="polaroid-caption">Senyummu yang terindah 🌸</p>
+          </div>
+        </div>
+
+        <div class="polaroid" style="--rotate: -1deg">
+          <div class="polaroid-inner">
+            <div class="polaroid-img">
+              <img src="foto/foto3.jpeg" alt="Foto bersama 3" loading="lazy">
+            </div>
+            <p class="polaroid-caption">Jalan-jalan berdua 🌈</p>
+          </div>
+        </div>
+
+        <div class="polaroid" style="--rotate: 3deg">
+          <div class="polaroid-inner">
+            <div class="polaroid-img">
+              <img src="foto/foto4.jpeg" alt="Foto bersama 4" loading="lazy">
+            </div>
+            <p class="polaroid-caption">My happy place 🏡</p>
+          </div>
+        </div>
+
+        <div class="polaroid" style="--rotate: -2deg">
+          <div class="polaroid-inner">
+            <div class="polaroid-img">
+              <img src="foto/foto5.jpeg" alt="Foto bersama 5" loading="lazy">
+            </div>
+            <p class="polaroid-caption">Tertawa bersama 😂</p>
+          </div>
+        </div>
+
+        <div class="polaroid" style="--rotate: 1deg">
+          <div class="polaroid-inner">
+            <div class="polaroid-img">
+              <img src="foto/foto6.jpeg" alt="Foto bersama 6" loading="lazy">
+            </div>
+            <p class="polaroid-caption">Selalu di hatiku 💝</p>
+          </div>
+        </div>
+      </div>
+
+      <button class="btn-next" id="btnToMessage">
+        Lanjut ke Ucapan 💌
+      </button>
+    </div>
+  </section>
+
+  <!-- ============================================= -->
+  <!--  HALAMAN 3: UCAPAN ULANG TAHUN                -->
+  <!-- ============================================= -->
+  <section class="page page-message" id="pageMessage">
+    <div class="page-inner">
+      <div class="message-container">
+        <div class="cake-emoji">🎂</div>
+        <h2 class="message-title">
+          Selamat Ulang Tahun,<br>
+          <span class="highlight-name">Alinda!</span>
+        </h2>
+        <div class="message-divider">
+          <span>💖</span>
+        </div>
+        
+        <!-- 
+          =============================================
+          GANTI PESAN UCAPAN DI BAWAH INI 
+          sesuai dengan keinginanmu
+          =============================================
+        -->
+        <div class="message-content">
+          <p>
+            Hai sayangku, <strong>Alinda</strong>... 🌸
+          </p>
+          <p>
+            Di hari yang spesial ini, aku ingin bilang betapa 
+            <em>beruntungnya</em> aku bisa mengenalmu dan memilikimu. 
+            Kamu itu luar biasa, kamu tahu tidak?
+          </p>
+          <p>
+            Aku selalu kagum dengan <strong>kegigihan</strong>mu. 
+            Kamu adalah orang yang paling pantang menyerah yang pernah aku kenal. 
+            Apapun rintangan yang datang, kamu selalu menghadapinya 
+            dengan kepala tegak dan hati yang kuat. 
+            Kamu tidak pernah berhenti berjuang, dan itu membuatku 
+            sangat, sangat <strong>bangga</strong> padamu. 💪✨
+          </p>
+          <p>
+            Dan yang paling aku suka darimu? <strong>Keceriaanmu!</strong> 🌞
+            Senyummu itu seperti matahari yang selalu menerangi hariku, 
+            bahkan di saat-saat yang paling mendung sekalipun. 
+            Tawamu itu menular, semangatmu itu luar biasa, 
+            dan energi positifmu selalu berhasil membuat semua orang 
+            di sekitarmu ikut bahagia—terutama aku. 😄
+          </p>
+          <p>
+            Kadang aku heran, bagaimana bisa ada orang yang 
+            <em>segigih</em> dan <em>seceria</em> kamu? 
+            Kamu itu paket lengkap: kuat, ceria, cantik, dan punya hati 
+            yang lembut. Kamu itu <strong>definisi nyata</strong> dari 
+            "gadis impian." 💕
+          </p>
+          <p>
+            Di ulang tahunmu ini, aku mendoakan semua yang terbaik untukmu. 
+            Semoga semua mimpi-mimpimu tercapai, semoga kebahagiaanmu 
+            selalu berlipat ganda, dan semoga aku selalu bisa 
+            ada di sampingmu untuk merayakan setiap momennya. 🥰
+          </p>
+          <p class="message-closing">
+            Selamat ulang tahun, cintaku. <br>
+            Terima kasih sudah menjadi kamu yang luar biasa. <br>
+            <em>Aku sayang kamu, sekarang dan selamanya.</em> 💗
+          </p>
+          <p class="message-signature">
+            — Dengan cinta, dari seseorang yang sangat bangga padamu 🌹
+          </p>
+        </div>
+
+        <div class="confetti-trigger" id="confettiArea">
+          <button class="btn-confetti" id="btnConfetti">
+            🎉 Tiup Lilinnya! 🎉
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================= -->
+  <!--  CONFETTI CANVAS                              -->
+  <!-- ============================================= -->
+  <canvas id="confettiCanvas"></canvas>
+
+  <script src="script.js"></script>
+</body>
+</html>
