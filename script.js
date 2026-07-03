@@ -264,14 +264,14 @@ document.addEventListener('DOMContentLoaded', () => {
       this.color = color;
       
       const angle = Math.random() * Math.PI * 2;
-      const speed = Math.random() * 5 + 2; // Particle speed
+      const speed = Math.random() * 4.5 + 1.5; // Particle speed
       this.vx = Math.cos(angle) * speed;
       this.vy = Math.sin(angle) * speed;
-      this.gravity = 0.06;
-      this.friction = 0.98; // Slow down gradually
+      this.gravity = 0.04; // Slower fall
+      this.friction = 0.985; // Less friction for wider expand
       this.opacity = 1;
-      this.fade = Math.random() * 0.015 + 0.01; // Fade speed
-      this.size = Math.random() * 2.5 + 1.5;
+      this.fade = Math.random() * 0.007 + 0.005; // Slower fade (lasts ~2-3 seconds)
+      this.size = Math.random() * 2.2 + 1.2;
     }
 
     update() {
@@ -326,18 +326,18 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function launchFireworks() {
-    // Launch a series of 5 firework explosions in the upper half of screen
-    for (let i = 0; i < 5; i++) {
+    // Launch a series of 15 firework explosions for a much longer celebration (~9 seconds)
+    for (let i = 0; i < 15; i++) {
       setTimeout(() => {
-        const x = Math.random() * (confettiCanvas.width * 0.6) + (confettiCanvas.width * 0.2);
-        const y = Math.random() * (confettiCanvas.height * 0.35) + (confettiCanvas.height * 0.15);
+        const x = Math.random() * (confettiCanvas.width * 0.7) + (confettiCanvas.width * 0.15);
+        const y = Math.random() * (confettiCanvas.height * 0.4) + (confettiCanvas.height * 0.1);
         createFirework(x, y);
 
         if (!confettiAnimating) {
           confettiAnimating = true;
           animateConfetti();
         }
-      }, i * 500); // 500ms delay between explosions
+      }, i * 600); // 600ms delay between explosions
     }
   }
 
@@ -422,8 +422,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const swayX = (Math.random() * 6 + 8) * (Math.random() > 0.5 ? 1 : -1);
     container.style.setProperty('--sway-x', `${swayX}px`);
 
-    // Constant speed (11s) so they stay parallel as they float up
-    const duration = 11;
+    // Constant speed (14s) so they stay parallel and rise slower/longer
+    const duration = 14;
     container.style.animationDuration = `${duration}s`;
 
     // Balloon bubble element

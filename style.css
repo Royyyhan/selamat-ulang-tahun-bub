@@ -970,7 +970,7 @@ button {
   align-items: center;
   pointer-events: auto; /* Let users click them! */
   cursor: pointer;
-  animation: floatUpBalloon 11s linear forwards; /* Constant speed for neat horizontal alignment */
+  animation: floatUpBalloon 14s linear forwards; /* Constant speed for neat horizontal alignment */
   will-change: transform;
 }
 
