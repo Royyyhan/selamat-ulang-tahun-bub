@@ -948,3 +948,121 @@ button {
     font-size: 2rem;
   }
 }
+
+/* ============================================= */
+/*  BALLOON SURPRISE EFFECT                      */
+/* ============================================= */
+
+.btn-confetti.fade-out {
+  opacity: 0;
+  transform: scale(0.8);
+  pointer-events: none;
+}
+
+.balloon-container {
+  position: fixed;
+  bottom: -240px; /* Start completely off-screen at bottom */
+  width: clamp(40px, 6vw, 75px);
+  height: clamp(140px, 16vw, 210px);
+  z-index: 999;  /* Just under confetti canvas (9999) but above page elements */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  pointer-events: auto; /* Let users click them! */
+  cursor: pointer;
+  animation: floatUpBalloon 11s linear forwards; /* Constant speed for neat horizontal alignment */
+  will-change: transform;
+}
+
+.balloon {
+  position: relative;
+  width: clamp(40px, 6vw, 75px);
+  height: clamp(50px, 7.5vw, 95px);
+  border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--white);
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: clamp(1.1rem, 1.8vw, 2rem);
+  text-shadow: 1px 2px 4px rgba(0, 0, 0, 0.2);
+  box-shadow: inset -6px -6px 0px rgba(0, 0, 0, 0.08), 0 6px 15px rgba(0, 0, 0, 0.15);
+  transition: transform 0.2s ease;
+}
+
+/* Shiny reflection */
+.balloon::before {
+  content: '';
+  position: absolute;
+  top: 10%;
+  left: 15%;
+  width: clamp(10px, 1.5vw, 20px);
+  height: clamp(6px, 0.9vw, 12px);
+  background: rgba(255, 255, 255, 0.45);
+  border-radius: 50%;
+  transform: rotate(-30deg);
+}
+
+.balloon-knot {
+  width: clamp(6px, 1vw, 12px);
+  height: clamp(4px, 0.6vw, 8px);
+  background: inherit;
+  clip-path: polygon(30% 0%, 70% 0%, 100% 100%, 0% 100%);
+  margin-top: -1px;
+}
+
+.balloon-string {
+  width: 1.5px;
+  height: clamp(60px, 8vw, 100px);
+  background: rgba(139, 123, 107, 0.2);
+  margin-top: -1px;
+}
+
+/* Sway and float up animations - simplified and softened for readability */
+@keyframes floatUpBalloon {
+  0% {
+    transform: translateY(0) translateX(0) rotate(0deg);
+  }
+  33% {
+    transform: translateY(-45vh) translateX(var(--sway-x, 10px)) rotate(3deg);
+  }
+  66% {
+    transform: translateY(-90vh) translateX(calc(var(--sway-x, 10px) * -1)) rotate(-3deg);
+  }
+  100% {
+    transform: translateY(-145vh) translateX(0) rotate(0deg);
+  }
+}
+
+/* Pop effect style */
+.balloon-container.popping {
+  animation: none !important;
+  pointer-events: none;
+  transition: transform 0.1s ease, opacity 0.1s ease;
+  transform: scale(1.4);
+  opacity: 0;
+}
+
+/* Burst particle for pop animation */
+.pop-particle {
+  position: fixed;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  z-index: 1000;
+  pointer-events: none;
+  animation: burstParticle 0.6s cubic-bezier(0.1, 0.8, 0.3, 1) forwards;
+}
+
+@keyframes burstParticle {
+  0% {
+    transform: translate(0, 0) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(var(--dir-x), var(--dir-y)) scale(0.1);
+    opacity: 0;
+  }
+}
+

@@ -293,17 +293,145 @@ document.addEventListener('DOMContentLoaded', () => {
 
   btnConfetti.addEventListener('click', () => {
     launchConfetti();
+    launchBalloons();
     
-    // Add a fun text change
-    const originalText = btnConfetti.textContent;
-    btnConfetti.textContent = '🥳 Happy Birthday!! 🥳';
-    btnConfetti.style.transform = 'scale(1.1)';
+    // Fade out and disable the button
+    btnConfetti.classList.add('fade-out');
+    btnConfetti.disabled = true;
     
+    // Hide the button after animation finishes to free up space
     setTimeout(() => {
-      btnConfetti.textContent = originalText;
-      btnConfetti.style.transform = '';
-    }, 3000);
+      btnConfetti.style.display = 'none';
+    }, 400);
   });
+
+  // =============================================
+  //  BALLOONS SURPRISE FUNCTIONALITY
+  // =============================================
+  function launchBalloons() {
+    const balloonColor = '#87CEFA'; // Soft Light Blue
+
+    // --- ROW 1: HAPPY BERDAY ---
+    const row1 = ['H', 'A', 'P', 'P', 'Y', 'B', 'E', 'R', 'D', 'A', 'Y'];
+    const totalSlotsRow1 = row1.length + 1.2;
+
+    row1.forEach((letter, i) => {
+      setTimeout(() => {
+        // Create 1.2 slot gap between 'HAPPY' (indices 0-4) and 'BERDAY' (indices 5-10)
+        const slot = i < 5 ? i : i + 1.2;
+        const leftPos = 8 + (slot * 84) / (totalSlotsRow1 - 1);
+        createBalloon(letter, balloonColor, leftPos);
+      }, i * 200); // Staggered entry
+    });
+
+    // --- ROW 2: SAYANGKU ---
+    const row2 = ['S', 'A', 'Y', 'A', 'N', 'G', 'K', 'U'];
+    const baseDelay = 1500; // Delay for row 2 to rise directly underneath row 1
+
+    row2.forEach((letter, i) => {
+      setTimeout(() => {
+        // Distribute Row 2 symmetrically centered (from 18vw to 82vw)
+        const leftPos = 18 + (i * 64) / (row2.length - 1);
+        createBalloon(letter, balloonColor, leftPos);
+      }, baseDelay + i * 200); // Staggered entry starting after 1500ms
+    });
+  }
+
+  function createBalloon(letter, color, leftPos) {
+    const container = document.createElement('div');
+    container.classList.add('balloon-container');
+    container.style.left = `${leftPos}vw`;
+
+    // Custom small sway amplitude (between 8px and 14px) for neat, smooth movement
+    const swayX = (Math.random() * 6 + 8) * (Math.random() > 0.5 ? 1 : -1);
+    container.style.setProperty('--sway-x', `${swayX}px`);
+
+    // Constant speed (11s) so they stay parallel as they float up
+    const duration = 11;
+    container.style.animationDuration = `${duration}s`;
+
+    // Balloon bubble element
+    const balloon = document.createElement('div');
+    balloon.classList.add('balloon');
+    balloon.style.backgroundColor = color;
+    balloon.textContent = letter;
+
+    // Balloon knot
+    const knot = document.createElement('div');
+    knot.classList.add('balloon-knot');
+    knot.style.backgroundColor = color;
+
+    // Balloon string
+    const string = document.createElement('div');
+    string.classList.add('balloon-string');
+
+    // Assemble
+    container.appendChild(balloon);
+    container.appendChild(knot);
+    container.appendChild(string);
+
+    document.body.appendChild(container);
+
+    // Interactive clicking/popping
+    const triggerPop = (e) => {
+      if (e.cancelable) e.preventDefault();
+      popBalloon(container, color);
+    };
+
+    container.addEventListener('click', triggerPop);
+    container.addEventListener('touchstart', triggerPop, { passive: false });
+
+    // Cleanup after animation completes
+    setTimeout(() => {
+      if (container.parentNode) {
+        container.parentNode.removeChild(container);
+      }
+    }, duration * 1000);
+  }
+
+  function popBalloon(container, color) {
+    if (container.classList.contains('popping')) return;
+    container.classList.add('popping');
+
+    const rect = container.getBoundingClientRect();
+    const x = rect.left + rect.width / 2;
+    const y = rect.top + rect.height / 3;
+
+    createPopParticles(x, y, color);
+
+    setTimeout(() => {
+      if (container.parentNode) {
+        container.parentNode.removeChild(container);
+      }
+    }, 150);
+  }
+
+  function createPopParticles(x, y, color) {
+    const particleCount = 12;
+    for (let i = 0; i < particleCount; i++) {
+      const p = document.createElement('div');
+      p.classList.add('pop-particle');
+      p.style.backgroundColor = color;
+      p.style.left = `${x}px`;
+      p.style.top = `${y}px`;
+
+      const angle = Math.random() * Math.PI * 2;
+      const speed = 40 + Math.random() * 60;
+      const dirX = Math.cos(angle) * speed;
+      const dirY = Math.sin(angle) * speed;
+
+      p.style.setProperty('--dir-x', `${dirX}px`);
+      p.style.setProperty('--dir-y', `${dirY}px`);
+
+      document.body.appendChild(p);
+
+      setTimeout(() => {
+        if (p.parentNode) {
+          p.parentNode.removeChild(p);
+        }
+      }, 600);
+    }
+  }
 
   // =============================================
   //  IMAGE ERROR HANDLING (Placeholder)
