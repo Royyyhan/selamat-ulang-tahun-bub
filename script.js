@@ -185,6 +185,7 @@ document.addEventListener('DOMContentLoaded', () => {
   //  CONFETTI ANIMATION
   // =============================================
   let confettiPieces = [];
+  let fireworkParticles = [];
   let confettiAnimating = false;
 
   function resizeCanvas() {
@@ -253,6 +254,48 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+  // =============================================
+  //  FIREWORKS ANIMATION
+  // =============================================
+  class FireworkParticle {
+    constructor(x, y, color) {
+      this.x = x;
+      this.y = y;
+      this.color = color;
+      
+      const angle = Math.random() * Math.PI * 2;
+      const speed = Math.random() * 5 + 2; // Particle speed
+      this.vx = Math.cos(angle) * speed;
+      this.vy = Math.sin(angle) * speed;
+      this.gravity = 0.06;
+      this.friction = 0.98; // Slow down gradually
+      this.opacity = 1;
+      this.fade = Math.random() * 0.015 + 0.01; // Fade speed
+      this.size = Math.random() * 2.5 + 1.5;
+    }
+
+    update() {
+      this.vx *= this.friction;
+      this.vy *= this.friction;
+      this.vy += this.gravity;
+      this.x += this.vx;
+      this.y += this.vy;
+      this.opacity -= this.fade;
+    }
+
+    draw() {
+      ctx.save();
+      ctx.globalAlpha = Math.max(0, this.opacity);
+      ctx.fillStyle = this.color;
+      ctx.shadowBlur = 6;
+      ctx.shadowColor = this.color; // Glowing firework effect!
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
+    }
+  }
+
   function launchConfetti() {
     confettiPieces = [];
     
@@ -272,6 +315,32 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+  function createFirework(x, y) {
+    const colors = ['#FF1493', '#FF69B4', '#00FFFF', '#FFD700', '#FF4500', '#ADFF2F', '#7B68EE', '#FF85A2', '#A2D2FF'];
+    const color = colors[Math.floor(Math.random() * colors.length)];
+    const particleCount = 60 + Math.floor(Math.random() * 40);
+
+    for (let i = 0; i < particleCount; i++) {
+      fireworkParticles.push(new FireworkParticle(x, y, color));
+    }
+  }
+
+  function launchFireworks() {
+    // Launch a series of 5 firework explosions in the upper half of screen
+    for (let i = 0; i < 5; i++) {
+      setTimeout(() => {
+        const x = Math.random() * (confettiCanvas.width * 0.6) + (confettiCanvas.width * 0.2);
+        const y = Math.random() * (confettiCanvas.height * 0.35) + (confettiCanvas.height * 0.15);
+        createFirework(x, y);
+
+        if (!confettiAnimating) {
+          confettiAnimating = true;
+          animateConfetti();
+        }
+      }, i * 500); // 500ms delay between explosions
+    }
+  }
+
   function animateConfetti() {
     ctx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
 
@@ -280,10 +349,16 @@ document.addEventListener('DOMContentLoaded', () => {
       piece.draw();
     });
 
+    fireworkParticles.forEach(particle => {
+      particle.update();
+      particle.draw();
+    });
+
     // Remove dead pieces
     confettiPieces = confettiPieces.filter(p => p.opacity > 0);
+    fireworkParticles = fireworkParticles.filter(p => p.opacity > 0);
 
-    if (confettiPieces.length > 0) {
+    if (confettiPieces.length > 0 || fireworkParticles.length > 0) {
       requestAnimationFrame(animateConfetti);
     } else {
       confettiAnimating = false;
@@ -293,6 +368,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   btnConfetti.addEventListener('click', () => {
     launchConfetti();
+    launchFireworks();
     launchBalloons();
     
     // Fade out and disable the button
