@@ -215,10 +215,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     randomColor() {
       const colors = [
-        '#F5A9B8', '#FFD700', '#E8A87C', '#D4EDDA',
-        '#E6D5F5', '#FF6B8A', '#FFB6C1', '#FFA07A',
-        '#87CEEB', '#DDA0DD', '#F0E68C', '#98FB98',
-        '#FF69B4', '#FF1493', '#FFD1DC'
+        '#8ECAE6', '#A2D2FF', '#3A86C8', '#B2EBF2',
+        '#E6D5F5', '#EBF3F9', '#C0D6E4', '#FFE082',
+        '#87CEEB', '#00BCD4', '#4FC3F7', '#73A5C6',
+        '#5D9CEC', '#F2F7FA', '#FFFFFF'
       ];
       return colors[Math.floor(Math.random() * colors.length)];
     }
@@ -528,8 +528,8 @@ document.addEventListener('DOMContentLoaded', () => {
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            background: linear-gradient(135deg, #FFF0E5, #F0E6FF);
-            color: #8B7B6B;
+            background: linear-gradient(135deg, #E8F4F8, #EBF3F9);
+            color: #708A9F;
             font-size: 0.85rem;
             text-align: center;
             padding: 1rem;

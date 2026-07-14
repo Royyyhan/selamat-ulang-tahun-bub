@@ -2,24 +2,24 @@
 /*  DESIGN SYSTEM & CSS VARIABLES                 */
 /* ============================================= */
 :root {
-  /* Color Palette - Warm Pastel */
-  --peach: #FFDAB9;
-  --peach-light: #FFF0E5;
-  --peach-dark: #E8A87C;
-  --cream: #FFF8F0;
-  --rose: #F5A9B8;
-  --rose-gold: #D4A574;
-  --rose-deep: #E8738A;
-  --blush: #FFE4E1;
-  --lavender: #E6D5F5;
-  --lavender-soft: #F0E6FF;
-  --mint: #D4EDDA;
-  --gold: #DAA520;
-  --gold-light: #FFD700;
+  /* Color Palette - Light Blue / Sky Blue Pastel Theme */
+  --peach: #A2D2FF;
+  --peach-light: #E8F4F8;
+  --peach-dark: #5D9CEC;
+  --cream: #F2F7FA;
+  --rose: #8ECAE6;
+  --rose-gold: #73A5C6;
+  --rose-deep: #3A86C8;
+  --blush: #D2E4FC;
+  --lavender: #C0D6E4;
+  --lavender-soft: #EBF3F9;
+  --mint: #B2EBF2;
+  --gold: #E5C060;
+  --gold-light: #FFE082;
   --white: #FFFFFF;
-  --text-dark: #4A3728;
-  --text-medium: #6B5344;
-  --text-light: #8B7B6B;
+  --text-dark: #1E2A38;
+  --text-medium: #4A607A;
+  --text-light: #708A9F;
   
   /* Typography */
   --font-display: 'Dancing Script', cursive;
@@ -44,7 +44,7 @@
   /* Shadows */
   --shadow-soft: 0 4px 15px rgba(0, 0, 0, 0.08);
   --shadow-medium: 0 8px 30px rgba(0, 0, 0, 0.12);
-  --shadow-glow: 0 0 30px rgba(245, 169, 184, 0.3);
+  --shadow-glow: 0 0 30px rgba(142, 202, 230, 0.3);
 }
 
 /* ============================================= */
@@ -141,7 +141,7 @@ button {
   padding: 8px 16px 8px 8px;
   border-radius: 50px;
   box-shadow: var(--shadow-medium);
-  border: 1px solid rgba(245, 169, 184, 0.3);
+  border: 1px solid rgba(142, 202, 230, 0.3);
   transition: var(--transition-normal);
 }
 
@@ -346,7 +346,7 @@ button {
   color: var(--white);
   background: linear-gradient(135deg, var(--rose-deep), var(--rose), var(--peach-dark));
   border-radius: 60px;
-  box-shadow: 0 8px 25px rgba(232, 115, 138, 0.4), 0 4px 10px rgba(0,0,0,0.1);
+  box-shadow: 0 8px 25px rgba(58, 134, 200, 0.4), 0 4px 10px rgba(0,0,0,0.1);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   animation: bounceAttention 2s ease-in-out infinite, fadeInUp 1s ease 0.8s both;
   overflow: hidden;
@@ -374,7 +374,7 @@ button {
 
 .btn-surprise:hover {
   transform: scale(1.08) translateY(-3px);
-  box-shadow: 0 12px 35px rgba(232, 115, 138, 0.5), 0 6px 15px rgba(0,0,0,0.15);
+  box-shadow: 0 12px 35px rgba(58, 134, 200, 0.5), 0 6px 15px rgba(0,0,0,0.15);
 }
 
 .btn-surprise:active {
@@ -568,14 +568,14 @@ button {
   color: var(--white);
   background: linear-gradient(135deg, var(--rose), var(--peach-dark));
   border-radius: 50px;
-  box-shadow: 0 6px 20px rgba(245, 169, 184, 0.4);
+  box-shadow: 0 6px 20px rgba(142, 202, 230, 0.4);
   transition: all 0.3s ease;
   letter-spacing: 0.5px;
 }
 
 .btn-next:hover {
   transform: translateY(-3px) scale(1.03);
-  box-shadow: 0 10px 30px rgba(245, 169, 184, 0.5);
+  box-shadow: 0 10px 30px rgba(142, 202, 230, 0.5);
 }
 
 .btn-next:active {
@@ -664,7 +664,7 @@ button {
   -webkit-backdrop-filter: blur(10px);
   border-radius: 20px;
   padding: var(--space-2xl);
-  border: 1px solid rgba(245, 169, 184, 0.2);
+  border: 1px solid rgba(142, 202, 230, 0.2);
   box-shadow: var(--shadow-soft);
   margin-bottom: var(--space-2xl);
 }
@@ -698,7 +698,7 @@ button {
   color: var(--text-dark) !important;
   margin-top: var(--space-xl) !important;
   padding-top: var(--space-lg);
-  border-top: 1px solid rgba(245, 169, 184, 0.3);
+  border-top: 1px solid rgba(142, 202, 230, 0.3);
 }
 
 .message-signature {
@@ -724,7 +724,7 @@ button {
   background-size: 200% 200%;
   animation: gradientShift 3s ease-in-out infinite;
   border-radius: 60px;
-  box-shadow: 0 8px 25px rgba(218, 165, 32, 0.3);
+  box-shadow: 0 8px 25px rgba(229, 192, 96, 0.3);
   transition: all 0.3s ease;
   letter-spacing: 1px;
 }
@@ -736,7 +736,7 @@ button {
 
 .btn-confetti:hover {
   transform: scale(1.08) translateY(-3px);
-  box-shadow: 0 12px 35px rgba(218, 165, 32, 0.5);
+  box-shadow: 0 12px 35px rgba(229, 192, 96, 0.5);
 }
 
 .btn-confetti:active {
