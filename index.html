@@ -13,6 +13,15 @@
 <body>
 
   <!-- ============================================= -->
+  <!--  BACKGROUND AMBIENT ORBS                      -->
+  <!-- ============================================= -->
+  <div class="bg-orbs" aria-hidden="true">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+  </div>
+
+  <!-- ============================================= -->
   <!--  FLOATING PARTICLES (Hearts, Stars, Sparkles) -->
   <!-- ============================================= -->
   <div class="particles" id="particles"></div>
@@ -23,6 +32,11 @@
   <div class="music-player" id="musicPlayer">
     <button class="music-btn" id="musicBtn" title="Play / Pause Musik">
       <span class="music-icon" id="musicIcon">🎵</span>
+      <div class="eq-bars" id="eqBars">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </div>
       <span class="music-pulse"></span>
     </button>
     <span class="music-label" id="musicLabel">Play Musik</span>
@@ -45,21 +59,23 @@
   <!--  HALAMAN 1: LANDING PAGE                      -->
   <!-- ============================================= -->
   <section class="page page-landing active" id="pageLanding">
-    <div class="landing-content">
-      <div class="envelope-icon">💌</div>
-      <p class="landing-subtitle">Ada sesuatu yang spesial untukmu...</p>
-      <h1 class="landing-title">
-        <span class="title-line">Hai,</span>
-        <span class="title-name">Cantik ✨</span>
-      </h1>
-      <p class="landing-description">
-        Aku sudah menyiapkan kejutan kecil ini khusus untukmu. 
-        Klik tombol di bawah untuk membukanya, ya! 🎁
-      </p>
-      <button class="btn-surprise" id="btnSurprise">
-        <span class="btn-text">🎁 Buka Kejutan</span>
-        <span class="btn-sparkle">✨</span>
-      </button>
+    <div class="landing-card">
+      <div class="landing-content">
+        <div class="envelope-icon">💌</div>
+        <p class="landing-subtitle">Ada sesuatu yang spesial untukmu...</p>
+        <h1 class="landing-title">
+          <span class="title-line">Hai,</span>
+          <span class="title-name">Cantik ✨</span>
+        </h1>
+        <p class="landing-description">
+          Bububmu menyiapin kejutan kecil ini khusus untuk my princess 👸. 
+          Klik tombol di bawah untuk membukanya, ya! 🎁
+        </p>
+        <button class="btn-surprise" id="btnSurprise">
+          <span class="btn-text">🎁 Buka Kejutan</span>
+          <span class="btn-sparkle">✨</span>
+        </button>
+      </div>
     </div>
     <div class="landing-decoration">
       <div class="floating-emoji e1">🌸</div>
@@ -77,7 +93,7 @@
   <section class="page page-gallery" id="pageGallery">
     <div class="page-inner">
       <h2 class="section-title">📸 Momen Kita Berdua</h2>
-      <p class="section-subtitle">Setiap momen bersamamu adalah kenangan terindah</p>
+      <p class="section-subtitle">Setiap momen sama kamu adalah kenangan terindah (Klik foto untuk perbesar 🔍)</p>
       
       <div class="gallery-grid">
         <!-- 
@@ -89,54 +105,66 @@
           =============================================
         -->
         <div class="polaroid" style="--rotate: -3deg">
+          <div class="polaroid-tape"></div>
           <div class="polaroid-inner">
             <div class="polaroid-img">
               <img src="foto/foto1.jpeg" alt="Foto bersama 1" loading="lazy">
+              <div class="polaroid-overlay">🔍</div>
             </div>
             <p class="polaroid-caption">Momen pertama kita 💕</p>
           </div>
         </div>
 
         <div class="polaroid" style="--rotate: 2deg">
+          <div class="polaroid-tape"></div>
           <div class="polaroid-inner">
             <div class="polaroid-img">
               <img src="foto/foto2.jpeg" alt="Foto bersama 2" loading="lazy">
+              <div class="polaroid-overlay">🔍</div>
             </div>
             <p class="polaroid-caption">Senyummu yang terindah 🌸</p>
           </div>
         </div>
 
         <div class="polaroid" style="--rotate: -1deg">
+          <div class="polaroid-tape"></div>
           <div class="polaroid-inner">
             <div class="polaroid-img">
               <img src="foto/foto3.jpeg" alt="Foto bersama 3" loading="lazy">
+              <div class="polaroid-overlay">🔍</div>
             </div>
             <p class="polaroid-caption">Jalan-jalan berdua 🌈</p>
           </div>
         </div>
 
         <div class="polaroid" style="--rotate: 3deg">
+          <div class="polaroid-tape"></div>
           <div class="polaroid-inner">
             <div class="polaroid-img">
               <img src="foto/foto4.jpeg" alt="Foto bersama 4" loading="lazy">
+              <div class="polaroid-overlay">🔍</div>
             </div>
-            <p class="polaroid-caption">My happy place 🏡</p>
+            <p class="polaroid-caption">you are my princess 🏡</p>
           </div>
         </div>
 
         <div class="polaroid" style="--rotate: -2deg">
+          <div class="polaroid-tape"></div>
           <div class="polaroid-inner">
             <div class="polaroid-img">
               <img src="foto/foto5.jpeg" alt="Foto bersama 5" loading="lazy">
+              <div class="polaroid-overlay">🔍</div>
             </div>
-            <p class="polaroid-caption">Tertawa bersama 😂</p>
+            <p class="polaroid-caption">Tersenyum bersamamu 😂</p>
           </div>
         </div>
 
         <div class="polaroid" style="--rotate: 1deg">
+          <div class="polaroid-tape"></div>
           <div class="polaroid-inner">
             <div class="polaroid-img">
               <img src="foto/foto6.jpeg" alt="Foto bersama 6" loading="lazy">
+              <div class="polaroid-overlay">🔍</div>
             </div>
             <p class="polaroid-caption">Selalu di hatiku 💝</p>
           </div>
@@ -157,7 +185,7 @@
       <div class="message-container">
         <div class="cake-emoji">🎂</div>
         <h2 class="message-title">
-          Selamat Ulang Tahun,<br>
+          Selamat Ulang Tahun My Princess,<br>
           <span class="highlight-name">Alinda Safira!</span>
         </h2>
         <div class="message-divider">
@@ -226,6 +254,20 @@
       </div>
     </div>
   </section>
+
+  <!-- ============================================= -->
+  <!--  PHOTO LIGHTBOX MODAL                         -->
+  <!-- ============================================= -->
+  <div class="lightbox-modal" id="lightboxModal">
+    <div class="lightbox-overlay" id="lightboxOverlay"></div>
+    <div class="lightbox-content">
+      <button class="lightbox-close" id="lightboxClose" title="Tutup">&times;</button>
+      <div class="lightbox-img-wrapper">
+        <img id="lightboxImg" src="" alt="Preview Foto">
+      </div>
+      <p class="lightbox-caption" id="lightboxCaption"></p>
+    </div>
+  </div>
 
   <!-- ============================================= -->
   <!--  CONFETTI CANVAS                              -->

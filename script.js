@@ -510,6 +510,70 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // =============================================
+  //  LIGHTBOX MODAL FUNCTIONALITY
+  // =============================================
+  const lightboxModal = document.getElementById('lightboxModal');
+  const lightboxOverlay = document.getElementById('lightboxOverlay');
+  const lightboxClose = document.getElementById('lightboxClose');
+  const lightboxImg = document.getElementById('lightboxImg');
+  const lightboxCaption = document.getElementById('lightboxCaption');
+
+  document.querySelectorAll('.polaroid').forEach(polaroid => {
+    polaroid.addEventListener('click', () => {
+      const img = polaroid.querySelector('.polaroid-img img');
+      const caption = polaroid.querySelector('.polaroid-caption');
+      
+      if (img && img.getAttribute('src')) {
+        lightboxImg.src = img.src;
+        lightboxCaption.textContent = caption ? caption.textContent : '';
+        lightboxModal.classList.add('active');
+      }
+    });
+  });
+
+  function closeLightbox() {
+    lightboxModal.classList.remove('active');
+  }
+
+  if (lightboxClose) lightboxClose.addEventListener('click', closeLightbox);
+  if (lightboxOverlay) lightboxOverlay.addEventListener('click', closeLightbox);
+
+  // =============================================
+  //  ROMANTIC HEART BURST ON CLICK
+  // =============================================
+  const heartEmojis = ['💖', '💕', '✨', '🌸', '💗', '⭐'];
+
+  document.addEventListener('click', (e) => {
+    // Avoid triggering when clicking buttons or interactive inputs to keep UI clean
+    if (e.target.closest('button') || e.target.closest('.lightbox-modal')) return;
+
+    const count = 3 + Math.floor(Math.random() * 3);
+    for (let i = 0; i < count; i++) {
+      const heart = document.createElement('div');
+      heart.classList.add('heart-burst');
+      heart.textContent = heartEmojis[Math.floor(Math.random() * heartEmojis.length)];
+
+      const dx = (Math.random() - 0.5) * 80;
+      const dy = (Math.random() - 0.5) * 80;
+      const rot = (Math.random() - 0.5) * 60;
+
+      heart.style.left = `${e.clientX}px`;
+      heart.style.top = `${e.clientY}px`;
+      heart.style.setProperty('--dx', `${dx}px`);
+      heart.style.setProperty('--dy', `${dy}px`);
+      heart.style.setProperty('--rot', `${rot}deg`);
+
+      document.body.appendChild(heart);
+
+      setTimeout(() => {
+        if (heart.parentNode) {
+          heart.parentNode.removeChild(heart);
+        }
+      }, 800);
+    }
+  });
+
+  // =============================================
   //  IMAGE ERROR HANDLING (Placeholder)
   // =============================================
   document.querySelectorAll('.polaroid-img img').forEach(img => {
@@ -546,9 +610,12 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // =============================================
-  //  KEYBOARD NAVIGATION (Accessibility)
+  //  KEYBOARD NAVIGATION & SHORTCUTS
   // =============================================
   document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' || e.key === 'Esc') {
+      closeLightbox();
+    }
     if (e.key === ' ' || e.key === 'Spacebar') {
       // Prevent scrolling with space
       if (e.target === document.body) {
