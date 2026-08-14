@@ -333,9 +333,35 @@ document.addEventListener('DOMContentLoaded', () => {
     return audioCtx;
   }
 
+  function unlockAudioContext() {
+    const ctx = getAudioContext();
+    if (ctx && ctx.state === 'suspended') {
+      ctx.resume();
+    }
+    // Warm up iOS Safari Web Audio Engine with a tiny silent buffer
+    if (ctx && ctx.state === 'running') {
+      try {
+        const buffer = ctx.createBuffer(1, 1, 22050);
+        const source = ctx.createBufferSource();
+        source.buffer = buffer;
+        source.connect(ctx.destination);
+        source.start(0);
+      } catch (e) {}
+    }
+  }
+
+  // Global listener to unlock AudioContext on any initial user touch or click on mobile/desktop
+  ['pointerdown', 'touchstart', 'click', 'keydown'].forEach(evt => {
+    document.addEventListener(evt, unlockAudioContext, { capture: true, passive: true });
+  });
+
   function playFireworkSound() {
     const ctx = getAudioContext();
     if (!ctx) return;
+
+    if (ctx.state === 'suspended') {
+      ctx.resume();
+    }
 
     const now = ctx.currentTime;
 
@@ -350,7 +376,7 @@ document.addEventListener('DOMContentLoaded', () => {
       swooshOsc.frequency.setValueAtTime(startFreq, now);
       swooshOsc.frequency.exponentialRampToValueAtTime(endFreq, now + 0.12);
 
-      swooshGain.gain.setValueAtTime(0.08, now);
+      swooshGain.gain.setValueAtTime(0.15, now);
       swooshGain.gain.exponentialRampToValueAtTime(0.001, now + 0.14);
 
       swooshOsc.connect(swooshGain);
@@ -370,7 +396,7 @@ document.addEventListener('DOMContentLoaded', () => {
     boomOsc.frequency.setValueAtTime(baseFreq, boomTime);
     boomOsc.frequency.exponentialRampToValueAtTime(32, boomTime + 0.22);
 
-    boomGain.gain.setValueAtTime(0.35, boomTime);
+    boomGain.gain.setValueAtTime(0.65, boomTime);
     boomGain.gain.exponentialRampToValueAtTime(0.001, boomTime + 0.25);
 
     boomOsc.connect(boomGain);
@@ -396,7 +422,7 @@ document.addEventListener('DOMContentLoaded', () => {
     filter.Q.setValueAtTime(1.8, boomTime);
 
     const noiseGain = ctx.createGain();
-    noiseGain.gain.setValueAtTime(0.28, boomTime);
+    noiseGain.gain.setValueAtTime(0.5, boomTime);
     noiseGain.gain.exponentialRampToValueAtTime(0.001, boomTime + 0.28);
 
     noise.connect(filter);
@@ -425,7 +451,7 @@ document.addEventListener('DOMContentLoaded', () => {
       crackleFilter.frequency.setValueAtTime(2000 + Math.random() * 2000, crackleTime);
 
       const crackleGain = ctx.createGain();
-      crackleGain.gain.setValueAtTime(0.18 + Math.random() * 0.1, crackleTime);
+      crackleGain.gain.setValueAtTime(0.35 + Math.random() * 0.15, crackleTime);
       crackleGain.gain.exponentialRampToValueAtTime(0.001, crackleTime + 0.025);
 
       crackleSrc.connect(crackleFilter);
@@ -513,6 +539,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   btnConfetti.addEventListener('click', () => {
+    unlockAudioContext();
     launchConfetti();
     launchFireworks();
     launchBalloons();
