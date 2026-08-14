@@ -161,26 +161,46 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // =============================================
-  //  BUTTON EVENTS
+  //  BUTTON EVENTS (Mobile Touch & Click Responsive)
   // =============================================
-  btnSurprise.addEventListener('click', () => {
-    // Try to auto-play music on first interaction
-    if (!isPlaying) {
-      toggleMusic();
-    }
-    navigateTo('pageGallery');
-  });
+  function addNavListener(element, targetPage, onTrigger) {
+    if (!element) return;
+    let lastTrigger = 0;
+    const handleNav = (e) => {
+      const now = Date.now();
+      if (now - lastTrigger < 500) return; // Prevent double trigger on mobile tap
+      lastTrigger = now;
+      if (onTrigger) onTrigger();
+      navigateTo(targetPage);
+    };
 
-  if (btnToCalendar) {
-    btnToCalendar.addEventListener('click', () => {
-      navigateTo('pageCalendar');
+    element.addEventListener('click', handleNav);
+    element.addEventListener('touchend', (e) => {
+      e.preventDefault();
+      handleNav(e);
+    }, { passive: false });
+  }
+
+  // 1. Landing -> Gallery
+  if (btnSurprise) {
+    addNavListener(btnSurprise, 'pageGallery', () => {
+      if (!isPlaying) toggleMusic();
     });
   }
 
-  if (btnToMessageFromCalendar) {
-    btnToMessageFromCalendar.addEventListener('click', () => {
-      navigateTo('pageMessage');
-    });
+  // 2. Gallery -> Calendar (Support btnToCalendar, btnToMessage, & class fallback)
+  const btnGalleryNext = document.getElementById('btnToCalendar') ||
+                         document.getElementById('btnToMessage') ||
+                         document.querySelector('#pageGallery .btn-next');
+  if (btnGalleryNext) {
+    addNavListener(btnGalleryNext, 'pageCalendar');
+  }
+
+  // 3. Calendar -> Message
+  const btnCalendarNext = document.getElementById('btnToMessageFromCalendar') ||
+                          document.querySelector('#pageCalendar .btn-next');
+  if (btnCalendarNext) {
+    addNavListener(btnCalendarNext, 'pageMessage');
   }
 
   // =============================================
