@@ -9,7 +9,8 @@ document.addEventListener('DOMContentLoaded', () => {
   // =============================================
   const pages = document.querySelectorAll('.page');
   const btnSurprise = document.getElementById('btnSurprise');
-  const btnToMessage = document.getElementById('btnToMessage');
+  const btnToCalendar = document.getElementById('btnToCalendar');
+  const btnToMessageFromCalendar = document.getElementById('btnToMessageFromCalendar');
   const btnConfetti = document.getElementById('btnConfetti');
   const musicBtn = document.getElementById('musicBtn');
   const musicIcon = document.getElementById('musicIcon');
@@ -19,6 +20,13 @@ document.addEventListener('DOMContentLoaded', () => {
   const particlesContainer = document.getElementById('particles');
   const confettiCanvas = document.getElementById('confettiCanvas');
   const ctx = confettiCanvas.getContext('2d');
+
+  // Countdown elements
+  const cdDays = document.getElementById('cdDays');
+  const cdHours = document.getElementById('cdHours');
+  const cdMinutes = document.getElementById('cdMinutes');
+  const cdSeconds = document.getElementById('cdSeconds');
+  const countdownStatus = document.getElementById('countdownStatus');
 
   let isPlaying = false;
   let currentPage = 'pageLanding';
@@ -99,9 +107,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
         currentPage = targetId;
 
-        // Trigger animations for gallery items
+        // Trigger animations for specific pages
         if (targetId === 'pageGallery') {
           triggerGalleryAnimations();
+        }
+        if (targetId === 'pageCalendar') {
+          triggerCalendarAnimations();
         }
         if (targetId === 'pageMessage') {
           triggerMessageAnimations();
@@ -119,6 +130,20 @@ document.addEventListener('DOMContentLoaded', () => {
         p.style.animation = '';
         p.style.animationDelay = `${i * 0.15}s`;
       });
+    });
+  }
+
+  function triggerCalendarAnimations() {
+    const calendarContainer = document.querySelector('.calendar-container');
+    if (!calendarContainer) return;
+    calendarContainer.style.opacity = '0';
+    calendarContainer.style.transform = 'translateY(30px)';
+    calendarContainer.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+    requestAnimationFrame(() => {
+      setTimeout(() => {
+        calendarContainer.style.opacity = '1';
+        calendarContainer.style.transform = 'translateY(0)';
+      }, 100);
     });
   }
 
@@ -146,9 +171,57 @@ document.addEventListener('DOMContentLoaded', () => {
     navigateTo('pageGallery');
   });
 
-  btnToMessage.addEventListener('click', () => {
-    navigateTo('pageMessage');
-  });
+  if (btnToCalendar) {
+    btnToCalendar.addEventListener('click', () => {
+      navigateTo('pageCalendar');
+    });
+  }
+
+  if (btnToMessageFromCalendar) {
+    btnToMessageFromCalendar.addEventListener('click', () => {
+      navigateTo('pageMessage');
+    });
+  }
+
+  // =============================================
+  //  COUNTDOWN TIMER LOGIC (15 Agustus 2007 -> 19th Birthday)
+  // =============================================
+  function updateCountdown() {
+    if (!cdDays || !cdHours || !cdMinutes || !cdSeconds) return;
+
+    // Target birthday date: 15 August 2026 00:00:00 local time
+    const targetDate = new Date(2026, 7, 15, 0, 0, 0); // Month 7 = August (0-indexed)
+    const now = new Date();
+    const diff = targetDate - now;
+
+    if (diff <= 0) {
+      // It's August 15th!
+      cdDays.textContent = '00';
+      cdHours.textContent = '00';
+      cdMinutes.textContent = '00';
+      cdSeconds.textContent = '00';
+      if (countdownStatus) {
+        countdownStatus.innerHTML = '🎉 <strong>SELAMAT ULANG TAHUN KE-19 ALINDA SAFIRA!</strong> 🎉';
+        countdownStatus.style.color = '#3A86C8';
+        countdownStatus.style.fontWeight = '600';
+      }
+      return;
+    }
+
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+    cdDays.textContent = String(days).padStart(2, '0');
+    cdHours.textContent = String(hours).padStart(2, '0');
+    cdMinutes.textContent = String(minutes).padStart(2, '0');
+    cdSeconds.textContent = String(seconds).padStart(2, '0');
+  }
+
+  // Initial call and start interval
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
 
   // =============================================
   //  MUSIC PLAYER

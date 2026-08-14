@@ -171,9 +171,140 @@
         </div>
       </div>
 
-      <button class="btn-next" id="btnToMessage">
-        Lanjut ke Ucapan 💌
+      <button class="btn-next" id="btnToCalendar">
+        Lanjut ke Kalender 📅
       </button>
+    </div>
+  </section>
+
+  <!-- ============================================= -->
+  <!--  HALAMAN 3: KALENDER & COUNTDOWN 19 TAHUN    -->
+  <!-- ============================================= -->
+  <section class="page page-calendar" id="pageCalendar">
+    <div class="page-inner">
+      <div class="calendar-container">
+        <h2 class="section-title">📅 Kalender & Perayaan 19th</h2>
+        <p class="section-subtitle">Menghitung hari menuju hari lahir terindah My Princess 🏡✨</p>
+        
+        <!-- Grid Ringkasan Milestone -->
+        <div class="milestone-grid">
+          <div class="milestone-card">
+            <span class="milestone-icon">🎂</span>
+            <div class="milestone-info">
+              <span class="milestone-label">Tanggal Lahir</span>
+              <span class="milestone-value">15 Agustus 2007</span>
+            </div>
+          </div>
+          <div class="milestone-card highlight">
+            <span class="milestone-icon">👑</span>
+            <div class="milestone-info">
+              <span class="milestone-label">Menuju Usia</span>
+              <span class="milestone-value">19 Tahun 🎉</span>
+            </div>
+          </div>
+          <div class="milestone-card">
+            <span class="milestone-icon">💖</span>
+            <div class="milestone-info">
+              <span class="milestone-label">Momen Indah</span>
+              <span class="milestone-value">6.940 Hari</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Box Kalender Agustus 2026 -->
+        <div class="calendar-card">
+          <div class="calendar-header">
+            <span class="month-title">Agustus 2026</span>
+            <span class="calendar-badge">Bulan Ulang Tahun Spesial ✨</span>
+          </div>
+
+          <div class="calendar-grid">
+            <div class="day-name">Sen</div>
+            <div class="day-name">Sel</div>
+            <div class="day-name">Rab</div>
+            <div class="day-name">Kam</div>
+            <div class="day-name">Jum</div>
+            <div class="day-name">Sab</div>
+            <div class="day-name">Min</div>
+
+            <!-- Empty slots for August 2026: Aug 1 2026 is Saturday -->
+            <div class="day-cell empty"></div>
+            <div class="day-cell empty"></div>
+            <div class="day-cell empty"></div>
+            <div class="day-cell empty"></div>
+            <div class="day-cell empty"></div>
+
+            <!-- Days 1 to 31 -->
+            <div class="day-cell">1</div>
+            <div class="day-cell">2</div>
+            <div class="day-cell">3</div>
+            <div class="day-cell">4</div>
+            <div class="day-cell">5</div>
+            <div class="day-cell">6</div>
+            <div class="day-cell">7</div>
+            <div class="day-cell">8</div>
+            <div class="day-cell">9</div>
+            <div class="day-cell">10</div>
+            <div class="day-cell">11</div>
+            <div class="day-cell">12</div>
+            <div class="day-cell">13</div>
+            <div class="day-cell">14</div>
+            <!-- Highlighted Birthday Cell -->
+            <div class="day-cell highlight-birthday" title="Hari Ulang Tahun Alinda! 🎂">
+              <span class="birthday-crown">👑</span>
+              <span class="day-number">15</span>
+              <span class="birthday-badge">Menuju 19 Tahun!</span>
+            </div>
+            <div class="day-cell">16</div>
+            <div class="day-cell">17</div>
+            <div class="day-cell">18</div>
+            <div class="day-cell">19</div>
+            <div class="day-cell">20</div>
+            <div class="day-cell">21</div>
+            <div class="day-cell">22</div>
+            <div class="day-cell">23</div>
+            <div class="day-cell">24</div>
+            <div class="day-cell">25</div>
+            <div class="day-cell">26</div>
+            <div class="day-cell">27</div>
+            <div class="day-cell">28</div>
+            <div class="day-cell">29</div>
+            <div class="day-cell">30</div>
+            <div class="day-cell">31</div>
+          </div>
+          <p class="calendar-quote">
+            "15 Agustus 2007: Hari di mana dunia kehadiran seorang putri paling cantik dan hebat..." 💕
+          </p>
+        </div>
+
+        <!-- Live Countdown Timer -->
+        <div class="countdown-card">
+          <h3 class="countdown-title">⏳ Countdown Menuju Ulang Tahun ke-19 ⏳</h3>
+          <div class="countdown-boxes" id="countdownBoxes">
+            <div class="time-box">
+              <span class="time-number" id="cdDays">00</span>
+              <span class="time-label">Hari</span>
+            </div>
+            <div class="time-box">
+              <span class="time-number" id="cdHours">00</span>
+              <span class="time-label">Jam</span>
+            </div>
+            <div class="time-box">
+              <span class="time-number" id="cdMinutes">00</span>
+              <span class="time-label">Menit</span>
+            </div>
+            <div class="time-box">
+              <span class="time-number" id="cdSeconds">00</span>
+              <span class="time-label">Detik</span>
+            </div>
+          </div>
+          <p class="countdown-status" id="countdownStatus">Menghitung detik-detik spesial... ✨</p>
+        </div>
+
+        <button class="btn-next" id="btnToMessageFromCalendar">
+          Lanjut ke Ucapan 💌
+        </button>
+      </div>
     </div>
   </section>
 
