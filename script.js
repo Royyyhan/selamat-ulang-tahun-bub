@@ -315,6 +315,150 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+  // =============================================
+  //  FIREWORK & POP SOUND EFFECTS (Web Audio API)
+  // =============================================
+  let audioCtx = null;
+
+  function getAudioContext() {
+    if (!audioCtx) {
+      const AudioCtx = window.AudioContext || window.webkitAudioContext;
+      if (AudioCtx) {
+        audioCtx = new AudioCtx();
+      }
+    }
+    if (audioCtx && audioCtx.state === 'suspended') {
+      audioCtx.resume();
+    }
+    return audioCtx;
+  }
+
+  function playFireworkSound() {
+    const ctx = getAudioContext();
+    if (!ctx) return;
+
+    const now = ctx.currentTime;
+
+    // 1. Rocket Swoosh / Whistle (Launch sound - 60% chance)
+    if (Math.random() > 0.4) {
+      const swooshOsc = ctx.createOscillator();
+      const swooshGain = ctx.createGain();
+      const startFreq = 220 + Math.random() * 150;
+      const endFreq = startFreq + 350 + Math.random() * 250;
+
+      swooshOsc.type = 'sine';
+      swooshOsc.frequency.setValueAtTime(startFreq, now);
+      swooshOsc.frequency.exponentialRampToValueAtTime(endFreq, now + 0.12);
+
+      swooshGain.gain.setValueAtTime(0.08, now);
+      swooshGain.gain.exponentialRampToValueAtTime(0.001, now + 0.14);
+
+      swooshOsc.connect(swooshGain);
+      swooshGain.connect(ctx.destination);
+
+      swooshOsc.start(now);
+      swooshOsc.stop(now + 0.14);
+    }
+
+    // 2. Firework Boom / Low Frequency Thump
+    const boomTime = now + 0.04;
+    const boomOsc = ctx.createOscillator();
+    const boomGain = ctx.createGain();
+    const baseFreq = 130 + Math.random() * 70;
+
+    boomOsc.type = 'triangle';
+    boomOsc.frequency.setValueAtTime(baseFreq, boomTime);
+    boomOsc.frequency.exponentialRampToValueAtTime(32, boomTime + 0.22);
+
+    boomGain.gain.setValueAtTime(0.35, boomTime);
+    boomGain.gain.exponentialRampToValueAtTime(0.001, boomTime + 0.25);
+
+    boomOsc.connect(boomGain);
+    boomGain.connect(ctx.destination);
+
+    boomOsc.start(boomTime);
+    boomOsc.stop(boomTime + 0.25);
+
+    // 3. Petasan Noise Burst (Crisp firecracker sound)
+    const bufferSize = Math.floor(ctx.sampleRate * 0.28);
+    const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+    const data = buffer.getChannelData(0);
+    for (let i = 0; i < bufferSize; i++) {
+      data[i] = Math.random() * 2 - 1;
+    }
+
+    const noise = ctx.createBufferSource();
+    noise.buffer = buffer;
+
+    const filter = ctx.createBiquadFilter();
+    filter.type = 'bandpass';
+    filter.frequency.setValueAtTime(1400 + Math.random() * 1000, boomTime);
+    filter.Q.setValueAtTime(1.8, boomTime);
+
+    const noiseGain = ctx.createGain();
+    noiseGain.gain.setValueAtTime(0.28, boomTime);
+    noiseGain.gain.exponentialRampToValueAtTime(0.001, boomTime + 0.28);
+
+    noise.connect(filter);
+    filter.connect(noiseGain);
+    noiseGain.connect(ctx.destination);
+
+    noise.start(boomTime);
+    noise.stop(boomTime + 0.28);
+
+    // 4. Staggered Petasan Crackles ("pop pop pop" sparkler trailing sound)
+    const numCrackles = 3 + Math.floor(Math.random() * 4);
+    for (let c = 0; c < numCrackles; c++) {
+      const crackleTime = boomTime + 0.06 + Math.random() * 0.18;
+      const crackleBufferSize = Math.floor(ctx.sampleRate * 0.025);
+      const crackleBuffer = ctx.createBuffer(1, crackleBufferSize, ctx.sampleRate);
+      const crackleData = crackleBuffer.getChannelData(0);
+      for (let i = 0; i < crackleData.length; i++) {
+        crackleData[i] = (Math.random() * 2 - 1) * Math.exp(-i / (ctx.sampleRate * 0.004));
+      }
+
+      const crackleSrc = ctx.createBufferSource();
+      crackleSrc.buffer = crackleBuffer;
+
+      const crackleFilter = ctx.createBiquadFilter();
+      crackleFilter.type = 'highpass';
+      crackleFilter.frequency.setValueAtTime(2000 + Math.random() * 2000, crackleTime);
+
+      const crackleGain = ctx.createGain();
+      crackleGain.gain.setValueAtTime(0.18 + Math.random() * 0.1, crackleTime);
+      crackleGain.gain.exponentialRampToValueAtTime(0.001, crackleTime + 0.025);
+
+      crackleSrc.connect(crackleFilter);
+      crackleFilter.connect(crackleGain);
+      crackleGain.connect(ctx.destination);
+
+      crackleSrc.start(crackleTime);
+      crackleSrc.stop(crackleTime + 0.025);
+    }
+  }
+
+  function playBalloonPopSound() {
+    const ctx = getAudioContext();
+    if (!ctx) return;
+
+    const now = ctx.currentTime;
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(360 + Math.random() * 100, now);
+    osc.frequency.exponentialRampToValueAtTime(60, now + 0.08);
+
+    gain.gain.setValueAtTime(0.4, now);
+    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.09);
+
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+
+    osc.start(now);
+    osc.stop(now + 0.09);
+  }
+
   function createFirework(x, y) {
     const colors = ['#FF1493', '#FF69B4', '#00FFFF', '#FFD700', '#FF4500', '#ADFF2F', '#7B68EE', '#FF85A2', '#A2D2FF'];
     const color = colors[Math.floor(Math.random() * colors.length)];
@@ -323,6 +467,8 @@ document.addEventListener('DOMContentLoaded', () => {
     for (let i = 0; i < particleCount; i++) {
       fireworkParticles.push(new FireworkParticle(x, y, color));
     }
+
+    playFireworkSound();
   }
 
   function launchFireworks() {
@@ -468,6 +614,8 @@ document.addEventListener('DOMContentLoaded', () => {
   function popBalloon(container, color) {
     if (container.classList.contains('popping')) return;
     container.classList.add('popping');
+
+    playBalloonPopSound();
 
     const rect = container.getBoundingClientRect();
     const x = rect.left + rect.width / 2;
